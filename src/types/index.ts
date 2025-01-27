@@ -25,7 +25,8 @@ export interface Error {
 export interface IParams {
   value: string;
   typeValue: string;
-  yearValue:string
+  yearValue:string;
+  page:string
 }
 
 

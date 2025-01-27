@@ -95,7 +95,13 @@ body {
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
+.wrapper{
+  @apply container mx-auto bg-background text-foreground relative
+}
 
+.listGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
 
 .loader {
   width: 200px;

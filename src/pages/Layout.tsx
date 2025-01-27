@@ -4,10 +4,10 @@ import ErrorBoundary from 'src/components/ErrorBoundary';
 
 function Layout() {
   return (
-    <main>
+    <main className="">
       <Header />
 
-      <div className="container mx-auto">
+      <div className="wrapper">
         <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>

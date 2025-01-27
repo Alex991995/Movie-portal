@@ -13,7 +13,7 @@ function ListMovies({ data }: ListMoviesProps) {
       ) : (
         data?.Search.map(item => (
           <Link key={item.imdbID} to={`movie/${item.imdbID}`}>
-            <li key={item.imdbID}>{item.Title}</li>
+            <li className='bg-card text-card-foreground' key={item.imdbID}>{item.Title}</li>
           </Link>
         ))
       )}

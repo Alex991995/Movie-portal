@@ -18,7 +18,6 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    // Update state so the next render will show the fallback UI.
     return { hasError: true, error };
   }
 
@@ -29,9 +28,9 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className='flex flex-col items-center justify-center h-screen'>
+        <div className="flex h-screen flex-col items-center justify-center">
           <h1>{this.state.error?.message}</h1>
-          <Link to='/'> Go to Home Page</Link>
+          <Link to="/"> Go to Home Page</Link>
         </div>
       );
     }

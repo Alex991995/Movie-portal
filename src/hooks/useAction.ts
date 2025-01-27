@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-// import { historySlice } from '../store/reducers/historySlice';
 import { bindActionCreators } from '@reduxjs/toolkit';
+import { movieSlice } from 'src/features/slices/movieSlice';
 
 const AllActions = {
-  // ...historySlice.actions,
+  ...movieSlice.actions,
 };
 
 const useActions = () => {
