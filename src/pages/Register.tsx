@@ -13,9 +13,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schemaRegister = yup.object({
-  username: yup.string().required('Username is required'),
-  password: yup.string().min(3).required('Password is required'),
-  passwordConfirm: yup.string().oneOf([yup.ref('password')], 'Passwords must match'),
+  username: yup.string().required('username is required'),
+  password: yup.string().min(3).required('password is required'),
+  passwordConfirm: yup.string().oneOf([yup.ref('password')], 'passwords must match'),
 });
 
 type User = yup.InferType<typeof schemaRegister>;
