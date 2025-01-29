@@ -18,7 +18,7 @@ const schemaRegister = yup.object({
   passwordConfirm: yup.string().oneOf([yup.ref('password')], 'passwords must match'),
 });
 
-type User = yup.InferType<typeof schemaRegister>;
+export type UserRegister = yup.InferType<typeof schemaRegister>;
 
 function Register() {
   const form = useForm({
@@ -30,8 +30,8 @@ function Register() {
     },
   });
 
-  function onSubmit(data: User) {
-    console.log(data);
+  function onSubmit(data: UserRegister) {
+   localStorage.setItem(data.username, JSON.stringify(data))
 
   }
 

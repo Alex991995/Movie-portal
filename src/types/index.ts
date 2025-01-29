@@ -56,6 +56,7 @@ export interface ISingleMovie {
   Production: string
   Website: string
   Response: string
+  user:string
 }
 
 export interface Rating {

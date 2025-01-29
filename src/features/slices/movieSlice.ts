@@ -8,6 +8,7 @@ export interface MovieSlice {
 
 const storageMovies = localStorage.getItem('movies')
 
+
 const initialState: MovieSlice = {
   favoriteMovies: storageMovies ? JSON.parse(storageMovies) : []
 
