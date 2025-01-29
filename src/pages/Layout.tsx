@@ -13,7 +13,7 @@ function Layout() {
         <div className="h-screen bg-background text-foreground">
           <Header setDarkMode={setDarkMode} />
 
-          <div className="container mx-auto">
+          <div className="container mx-auto h-[89%]">
             <ErrorBoundary>
               <Outlet />
             </ErrorBoundary>

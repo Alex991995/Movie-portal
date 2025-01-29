@@ -1,8 +1,8 @@
 import React, { useContext, createContext, useState } from 'react';
 
-type U = { user: string | null; logOut: () => void; logIn:(username: string)=> void };
+type UserType = { user: string | null; logOut: () => void; logIn: (username: string) => void };
 
-const AuthContext = createContext<U>({
+const AuthContext = createContext<UserType>({
   user: null,
   logOut: () => {},
   logIn: () => {},
@@ -17,16 +17,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState(authorizedUser);
 
   function logOut() {
-    setUser(null)
-    localStorage.removeItem('authorized')
+    setUser(null);
+    localStorage.removeItem('authorized');
   }
 
-  function logIn(username:string) {
-    setUser(username)
-    localStorage.setItem('authorized', username)
+  function logIn(username: string) {
+    setUser(username);
+    localStorage.setItem('authorized', username);
   }
-
-
 
   return <AuthContext.Provider value={{ user, logOut, logIn }}>{children}</AuthContext.Provider>;
 };
