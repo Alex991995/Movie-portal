@@ -11,9 +11,14 @@ import {
 interface PaginationComponentProps {
   page: string;
   setPage: React.Dispatch<React.SetStateAction<string>>;
+  isLastPage: boolean;
 }
 
-function PaginationComponent({ page, setPage }: PaginationComponentProps) {
+function PaginationComponent({
+  page,
+  setPage,
+  isLastPage,
+}: PaginationComponentProps) {
   function nextPage() {
     setPage(prevStat => String(+prevStat + 1));
   }
@@ -22,7 +27,6 @@ function PaginationComponent({ page, setPage }: PaginationComponentProps) {
       setPage(prevStat => String(+prevStat - 1));
     }
   }
-
   return (
     <>
       <Pagination>
@@ -40,7 +44,10 @@ function PaginationComponent({ page, setPage }: PaginationComponentProps) {
           </PaginationItem>
 
           <PaginationItem>
-            <PaginationNext onClick={nextPage} />
+            <PaginationNext
+              onClick={isLastPage ? undefined : nextPage}
+              className={isLastPage ? 'cursor-not-allowed' : ''}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

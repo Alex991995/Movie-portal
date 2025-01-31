@@ -10,20 +10,22 @@ interface HeaderProps {
 
 function Header({ setDarkMode }: HeaderProps) {
   const { user, logOut } = useAuth();
-  //  const user =  result?.user
-  //  const fn = result && result.setUser
-
-  console.log(user);
-  // const user = localStorage.getItem('authorized');
   let ifUserExistsShowUsernameOrRegister;
 
   if (user) {
     ifUserExistsShowUsernameOrRegister = (
       <>
-        <Button variant="link" className="bg-secondary text-secondary-foreground">
+        <Button
+          variant="link"
+          className="bg-secondary text-secondary-foreground"
+        >
           {user}
         </Button>
-        <Button variant="link" className="bg-secondary text-secondary-foreground" onClick={logOut}>
+        <Button
+          variant="link"
+          className="bg-secondary text-secondary-foreground"
+          onClick={logOut}
+        >
           Log out
         </Button>
       </>
@@ -32,12 +34,18 @@ function Header({ setDarkMode }: HeaderProps) {
     ifUserExistsShowUsernameOrRegister = (
       <>
         <Link to="/login">
-          <Button variant="link" className="bg-secondary text-secondary-foreground">
+          <Button
+            variant="link"
+            className="bg-secondary text-secondary-foreground"
+          >
             Войти
           </Button>
         </Link>
         <Link to="/register">
-          <Button variant="link" className="bg-secondary text-secondary-foreground">
+          <Button
+            variant="link"
+            className="bg-secondary text-secondary-foreground"
+          >
             Зарегистрироватся
           </Button>
         </Link>
@@ -47,9 +55,9 @@ function Header({ setDarkMode }: HeaderProps) {
 
   return (
     <header className="bg-purple-400">
-      <nav className="mx-4 flex items-center justify-between">
-        <Link to="/">
-          <img className="w-24" src="/pngwing.com.png" alt="Logo" />
+      <nav className="mx-4 flex md:flex-row  items-center justify-between flex-col gap-4 py-4">
+        <Link to="/" className='hidden md:block'>
+          <img className="w-24 " src="/pngwing.com.png" alt="Logo" />
         </Link>
 
         <Link to="/favorite">
@@ -60,23 +68,10 @@ function Header({ setDarkMode }: HeaderProps) {
 
         <div className="flex items-center gap-2">
           <Switch id="theme-mode" onClick={() => setDarkMode(prev => !prev)} />
-          <Label htmlFor="theme-mode"> Turn on theme</Label>
+          <Label htmlFor="theme-mode"> Switch the theme</Label>
         </div>
 
-        <div className="flex gap-4">
-          {
-            ifUserExistsShowUsernameOrRegister /* <Link to="/login">
-            <Button variant="link" className="bg-secondary text-secondary-foreground">
-              Войти
-            </Button>
-          </Link>
-          <Link to="/register">
-            <Button variant="link" className="bg-secondary text-secondary-foreground">
-              Зарегистрироватся
-            </Button>
-          </Link> */
-          }
-        </div>
+        <div className="flex gap-4">{ifUserExistsShowUsernameOrRegister}</div>
       </nav>
     </header>
   );

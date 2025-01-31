@@ -9,7 +9,7 @@ export const movieApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getAllMovie: builder.query<IDataAllMovies, IParams>({
-      query: ({value, typeValue, yearValue, page}) => `?s=${value+apiKey}&type=${typeValue}&y=${yearValue}&page=${page}`,
+      query: ({debouncedValue, typeValue, yearValue, page}) => `?s=${debouncedValue+apiKey}&type=${typeValue}&y=${yearValue}&page=${page}`,
     }),
     getSingleMovie: builder.query<ISingleMovie, string>({
       query: (id) => `?i=${id+apiKey}`

@@ -2,36 +2,45 @@ import { useAppSelector } from 'src/hooks/reduxHooks';
 import InfoAboutSingleMovie from 'src/components/InfoAboutSingleMovie';
 import { isPosterExist } from 'src/helpers/isPosterExist';
 import PaginationComponent from 'src/components/PaginationComponent';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuth } from 'src/hoc/AuthProvider';
 
 function Favorite() {
-  const user = localStorage.getItem('authorized')
-  const navigate = useNavigate()
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const movies = useAppSelector(state => state.movies.favoriteMovies);
-  const usersMovies = movies.filter(item => item.user === user)
+  const usersMovies = movies.filter(item => item.user === user);
 
   const [page, setPage] = useState('1');
 
   const itemsPerPage = 3;
   const startIndex = (+page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const pageItems = movies.slice(startIndex, endIndex);
+  const pageItems = usersMovies.slice(startIndex, endIndex);
+  const [isLastPage, setIsLastPage] = useState(false);
 
-  useLayoutEffect(()=> {
-    if(!user){
-
-      navigate('register')
+  useEffect(() => {
+    if (pageItems.length === 0) {
+      setIsLastPage(true);
+    } else {
+      setIsLastPage(false);
     }
-  })
-    console.log(movies)
+  }, [pageItems.length]);
+
+  useLayoutEffect(() => {
+    if (!user) {
+      navigate('/register');
+    }
+  }, [user]);
+
   return (
-    <section className='flex flex-col'>
-      <div className="listGrid mt-4 grid gap-4">
-        {usersMovies.length ? (
-          usersMovies.map(item => (
-            <div className="flex max-w-48 flex-col gap-4 rounded-md bg-border" key={item.imdbID}>
-              {isPosterExist(item, '112px')}
+    <section className="grid h-full grid-rows-[1fr_200px]">
+      <div className="listGrid mt-4 grid justify-center gap-4">
+        {pageItems.length ? (
+          pageItems.map(item => (
+            <div className="flex h-72 flex-col gap-4 rounded-md" key={item.imdbID}>
+              {isPosterExist(item)}
               <InfoAboutSingleMovie data={item} />
             </div>
           ))
@@ -39,7 +48,7 @@ function Favorite() {
           <div>No chosen movies</div>
         )}
       </div>
-      <PaginationComponent page={page} setPage={setPage} />
+      <PaginationComponent page={page} setPage={setPage} isLastPage={isLastPage} />
     </section>
   );
 }

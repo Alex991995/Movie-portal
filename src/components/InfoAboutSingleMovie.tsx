@@ -1,16 +1,17 @@
 import { ISingleMovie } from 'src/types';
 
-
 interface InfoAboutSingleMovieProps {
-  data: ISingleMovie;
+  data: ISingleMovie | undefined;
 }
 
 function InfoAboutSingleMovie({ data }: InfoAboutSingleMovieProps) {
-
+  if(!data){
+    return null
+  }
   return (
     <>
       <p className="font-bold">
-        <span className="italic">Actors:</span> {data?.Actors}
+        <span className="italic">Name:</span> {data.Title}
       </p>
       <p className="font-bold">
         <span className="italic">Country: {data?.Country}</span>
@@ -18,9 +19,6 @@ function InfoAboutSingleMovie({ data }: InfoAboutSingleMovieProps) {
       <p className="font-bold">
         <span className="italic">Genre: {data?.Genre}</span>
       </p>
-      {/* <p className="my-4 font-bold">
-        <span className="italic">Plot: {data?.Plot}</span>
-      </p> */}
     </>
   );
 }

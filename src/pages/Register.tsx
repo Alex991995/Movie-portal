@@ -11,16 +11,20 @@ import {
 import { Input } from '../components/ui/input';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router';
 
 const schemaRegister = yup.object({
   username: yup.string().required('username is required'),
   password: yup.string().min(3).required('password is required'),
-  passwordConfirm: yup.string().oneOf([yup.ref('password')], 'passwords must match'),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref('password')], 'passwords must match'),
 });
 
 export type UserRegister = yup.InferType<typeof schemaRegister>;
 
 function Register() {
+  const navigate = useNavigate();
   const form = useForm({
     resolver: yupResolver(schemaRegister),
     defaultValues: {
@@ -31,8 +35,8 @@ function Register() {
   });
 
   function onSubmit(data: UserRegister) {
-   localStorage.setItem(data.username, JSON.stringify(data))
-
+    localStorage.setItem(data.username, JSON.stringify(data));
+    navigate('/login');
   }
 
   return (
@@ -66,7 +70,11 @@ function Register() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type your password" {...field} type="password" />
+                  <Input
+                    placeholder="Type your password"
+                    {...field}
+                    type="password"
+                  />
                 </FormControl>
                 {form.formState.errors.password ? (
                   <FormMessage className="h-1" />
@@ -83,7 +91,11 @@ function Register() {
               <FormItem>
                 <FormLabel>PasswordConfirm</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type your passwordConfirm" {...field} type="password" />
+                  <Input
+                    placeholder="Type your passwordConfirm"
+                    {...field}
+                    type="password"
+                  />
                 </FormControl>
                 {form.formState.errors.passwordConfirm ? (
                   <FormMessage className="h-1" />

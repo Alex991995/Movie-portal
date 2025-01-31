@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SelectValue, Select, SelectContent, SelectItem, SelectTrigger } from './ui/select';
 
 interface SelectComponentProps {
   array: string[];
   onChangeFn: React.Dispatch<React.SetStateAction<string>>;
-  placeholder: string
+  placeholder: string;
+  value: string;
 }
 
-function SelectComponent({ array, onChangeFn, placeholder }: SelectComponentProps) {
+function SelectComponent({ array, onChangeFn, placeholder, value }: SelectComponentProps) {
   return (
-    <Select  onValueChange={e => onChangeFn(e)} >
-      <SelectTrigger className="w-[180px] ">
+    <Select value={value} onValueChange={e => onChangeFn(e)}>
+      <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {array.map(item => (
-          <SelectItem  key={item} value={item}>
+          <SelectItem key={item} value={item}>
             {item}
           </SelectItem>
         ))}

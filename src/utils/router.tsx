@@ -6,8 +6,11 @@ import Login from 'src/pages/Login';
 import MainPage from 'src/pages/MainPage';
 import Register from 'src/pages/Register';
 import Loader from 'src/components/Loader';
-// import SingleMovie from 'src/pages/SingleMovie';
-const SingleMovie = lazy( () => import('src/pages/SingleMovie'))
+import NotFoundPage from 'src/pages/NotFoundPage';
+// import NotFoundPage from 'src/components/NotFoundPage';
+
+import SingleMovie from 'src/pages/SingleMovie';
+// const SingleMovie = lazy( () => import('src/pages/SingleMovie'))
 
 
 export const router = createBrowserRouter([
@@ -21,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'movie/:id',
-        // element: <SingleMovie />,
+        // element: <Loader/>,
         element: <Suspense fallback={<Loader/>}><SingleMovie /></Suspense> ,
       },
       {
@@ -37,5 +40,9 @@ export const router = createBrowserRouter([
         element: <Favorite />,
       },
     ]
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);

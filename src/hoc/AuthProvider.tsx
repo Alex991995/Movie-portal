@@ -5,7 +5,7 @@ type UserType = { user: string | null; logOut: () => void; logIn: (username: str
 const AuthContext = createContext<UserType>({
   user: null,
   logOut: () => {},
-  logIn: () => {},
+  logIn: (username: string) => {},
 });
 
 export interface AuthProviderProps {

@@ -23,7 +23,7 @@ export interface Error {
 }
 
 export interface IParams {
-  value: string;
+  debouncedValue: string;
   typeValue: string;
   yearValue:string;
   page:string

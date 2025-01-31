@@ -13,6 +13,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserRegister } from './Register';
 import { useAuth } from 'src/hoc/AuthProvider';
+import { useNavigate } from 'react-router';
 
 const schemaRegister = yup.object({
   username: yup.string().required('username is required'),
@@ -22,9 +23,11 @@ const schemaRegister = yup.object({
 type User = yup.InferType<typeof schemaRegister>;
 
 function Login() {
-  const { logIn  } = useAuth()
+  const { user, logIn } = useAuth();
+  const navigate = useNavigate();
   const form = useForm({
     resolver: yupResolver(schemaRegister),
+    mode: 'onChange',
     defaultValues: {
       username: '',
       password: '',
@@ -32,18 +35,30 @@ function Login() {
   });
 
   function onSubmit(data: User) {
-    Object.keys(localStorage).forEach(function (key) {
-      const user = localStorage.getItem(key);
-      
-      if (user) {
-        console.log(user)
-        const result = JSON.parse(user) as UserRegister;
-        if (data.username === result.username && data.password === result.password) {
-          logIn(data.username)
-        }
-      }
+    if (!user) {
+      const found = Object.keys(localStorage).some(key => {
+        const registeredUser = localStorage.getItem(key);
 
-    });
+        if (registeredUser) {
+          const result = JSON.parse(registeredUser) as UserRegister;
+          if (
+            data.username === result.username &&
+            data.password === result.password
+          ) {
+            logIn(data.username);
+            navigate('/');
+            return true;
+          }
+        }
+        return false;
+      });
+
+      if (!found) {
+        form.setError('username', {
+          message: "User doesn't exist, please register",
+        });
+      }
+    }
   }
 
   return (
@@ -77,7 +92,11 @@ function Login() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type your password" {...field} type="password" />
+                  <Input
+                    placeholder="Type your password"
+                    {...field}
+                    type="password"
+                  />
                 </FormControl>
                 {form.formState.errors.password ? (
                   <FormMessage className="h-1" />
@@ -87,7 +106,9 @@ function Login() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={!form.formState.isValid}>
+            Submit
+          </Button>
         </form>
       </Form>
     </section>

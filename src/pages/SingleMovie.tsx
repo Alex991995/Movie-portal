@@ -1,36 +1,27 @@
 import { Link, useNavigate, useParams } from 'react-router';
 import { useGetSingleMovieQuery } from 'src/features/api/movieApi';
 import Loader from 'src/components/Loader';
-import { IDataError } from 'src/types';
+import { IDataError, ISingleMovie } from 'src/types';
 import { Button } from 'src/components/ui/button';
 import useActions from 'src/hooks/useAction';
 import { useAppSelector } from 'src/hooks/reduxHooks';
 import InfoAboutSingleMovie from 'src/components/InfoAboutSingleMovie';
 import { isPosterExist } from 'src/helpers/isPosterExist';
+import { useAuth } from 'src/hoc/AuthProvider';
 
 function SingleMovie() {
+  const { user } = useAuth();
   const { id } = useParams();
-  const { data, isFetching, isError, error, isLoading, isSuccess, isUninitialized } =
-    useGetSingleMovieQuery(id || '');
+  const { data, isFetching, isError, error } = useGetSingleMovieQuery(id || '');
   const navigate = useNavigate();
   const { addToFavorites, deleteFromFavorites } = useActions();
 
-  const user = localStorage.getItem('authorized');
   const favoriteMovies = useAppSelector(state => state.movies.favoriteMovies);
-  const isExistMovieInStorage = favoriteMovies.find(item => item.imdbID === data?.imdbID);
+  const isExistMovieInStorage = favoriteMovies.find(
+    item => item.imdbID === data?.imdbID && item.user === user,
+  );
 
-  if (!data) {
-    return null;
-  }
-  const resultIfPosterOrNot = isPosterExist(data, 'auto');
-
-  console.log(isFetching);
-  console.log(isLoading);
-  console.log(isSuccess)
-  console.log(isUninitialized)
-
-  console.log(data)
-  // console.log(user);
+  const resultIfPosterOrNot = isPosterExist(data);
 
   if (isFetching) {
     return <Loader />;
@@ -57,7 +48,7 @@ function SingleMovie() {
       <Button
         variant="secondary"
         className="self-end justify-self-start"
-        onClick={() => addToFavorites({ ...data, user })}
+        onClick={() => data && addToFavorites({ ...data, user })}
       >
         Like
       </Button>
@@ -75,7 +66,7 @@ function SingleMovie() {
   }
 
   return (
-    <section>
+    <section className="mx-auto max-w-[800px]">
       <div className="mt-4 grid grid-cols-[auto_1fr] items-center gap-4">
         {resultIfPosterOrNot}
         <div className="flex max-w-80 flex-col gap-3">
