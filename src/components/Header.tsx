@@ -86,7 +86,7 @@ function Header({ setDarkMode }: HeaderProps) {
 
       <nav
         onClick={closeMenuIfClickAnyPlace}
-        className={`${isMenuOpen ? 'd flex flex-col' : 'hidden'} items-center gap-4 transition-all md:flex md:justify-between`}
+        className={`${isMenuOpen ? 'nav-small_active flex flex-col' : 'hidden'} px-4 items-center gap-4 transition-all md:flex md:justify-between`}
       >
         <Link to="/">
           <img className="w-24" src="/pngwing.com.png" alt="Logo" />
@@ -101,7 +101,6 @@ function Header({ setDarkMode }: HeaderProps) {
         <div className="flex items-center gap-2">
           <Switch data-switch={true} id="theme-mode" onClick={() => setDarkMode(prev => !prev)} />
           <Label data-switch={true} htmlFor="theme-mode">
-            {' '}
             {t('Switch the theme')}
           </Label>
         </div>

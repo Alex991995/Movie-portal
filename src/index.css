@@ -75,11 +75,12 @@ body {
 }
 
 .transition-all {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 
-.d{
- @apply fixed inset-0 w-full h-full  bg-purple-400 z-10 justify-center
+.nav-small_active{
+ @apply fixed inset-0 w-full h-full  bg-purple-400 z-10 justify-center;
+
 }
 
 @layer base {
@@ -95,7 +96,7 @@ body {
 }
 
 .listGrid {
-  grid-template-columns: repeat(3, minmax(auto, 300px));
+  grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));
 }
 
 .loader {

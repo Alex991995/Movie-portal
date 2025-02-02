@@ -42,7 +42,7 @@ function Register() {
   }
 
   return (
-    <section className="flex justify-center">
+    <section className="flex justify-center h-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

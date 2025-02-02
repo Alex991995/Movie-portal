@@ -62,39 +62,33 @@ function MainPage() {
   return (
     <section className="grid h-[85%] grid-rows-[1fr_100px]">
       <div className="flex flex-col items-center justify-center gap-4">
-        <div className="flex gap-4 md:flex-row flex-col">
+        <div className="flex flex-col gap-4 md:flex-row">
           <SelectComponent
-           value={typeValue}
+            value={typeValue}
             array={arrayGenres}
             onChangeFn={setTypeValue}
-            placeholder={t("Choose genre")} 
+            placeholder={t('Choose genre')}
           />
 
           <SelectComponent
             value={yearValue}
             array={arrYears}
             onChangeFn={setYearValue}
-            placeholder={t("Choose year")}
+            placeholder={t('Choose year')}
           />
-          <Button onClick={reset}>{t("Reset")}</Button>
+          <Button onClick={reset}>{t('Reset')}</Button>
         </div>
 
         <Input
-          className="max-w-80 bg-input"
+          className="w-auto max-w-80 bg-input"
           placeholder={t('Type')}
           onChange={e => setValue(e.target.value)}
           ref={refInput}
         />
 
-        <ul className="min-h-64">
-          {isFetching ? <Loader /> : <ListMovies data={data} />}
-        </ul>
+        <ul className="min-h-64">{isFetching ? <Loader /> : <ListMovies data={data} />}</ul>
       </div>
-      <PaginationComponent
-        page={page}
-        setPage={setPage}
-        isLastPage={isLastPage}
-      />
+      <PaginationComponent page={page} setPage={setPage} isLastPage={isLastPage} />
     </section>
   );
 }

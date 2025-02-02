@@ -35,11 +35,11 @@ function Favorite() {
   }, [user]);
 
   return (
-    <section className="grid h-full grid-rows-[1fr_200px]">
-      <ul className="listGrid mt-4 grid justify-center gap-4">
+    <section className="grid h-full grid-rows-[1fr_200px] items-center">
+      <ul className="listGrid mt-4 grid justify-center gap-4 justify-items-center">
         {pageItems.length ? (
           pageItems.map(item => (
-            <li className="flex h-72 flex-col gap-4 rounded-md" key={item.imdbID}>
+            <li className="flex max-h-[400px] flex-col gap-4 rounded-md" key={item.imdbID}>
               {isPosterExist(item)}
               <InfoAboutSingleMovie data={item} />
             </li>

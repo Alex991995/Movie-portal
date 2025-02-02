@@ -15,11 +15,7 @@ interface PaginationComponentProps {
   isLastPage: boolean;
 }
 
-function PaginationComponent({
-  page,
-  setPage,
-  isLastPage,
-}: PaginationComponentProps) {
+function PaginationComponent({ page, setPage, isLastPage }: PaginationComponentProps) {
   const { t } = useTranslation();
   function nextPage() {
     setPage(prevStat => String(+prevStat + 1));
@@ -33,9 +29,8 @@ function PaginationComponent({
     <>
       <Pagination>
         <PaginationContent>
-          <PaginationItem >
-            <PaginationPrevious text={t("Previous")}  onClick={previousPage} />
-          
+          <PaginationItem>
+            <PaginationPrevious text={t('Previous')} onClick={previousPage} />
           </PaginationItem>
 
           <PaginationItem>
@@ -48,7 +43,7 @@ function PaginationComponent({
 
           <PaginationItem>
             <PaginationNext
-              text={t("Next")}
+              text={t('Next')}
               onClick={isLastPage ? undefined : nextPage}
               className={isLastPage ? 'cursor-not-allowed' : ''}
             />
