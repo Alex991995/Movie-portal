@@ -35,7 +35,6 @@ function SingleMovie() {
   let ifUserExistShowLikeOrRedirectToLogin;
 
   if (user) {
-    console.log(user);
     ifUserExistShowLikeOrRedirectToLogin = isExistMovieInStorage ? (
       <Button
         variant="destructive"

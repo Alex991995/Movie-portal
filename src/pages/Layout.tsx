@@ -6,7 +6,6 @@ import AuthProvider from 'src/hoc/AuthProvider';
 
 function Layout() {
   const [darkMode, setDarkMode] = useState(false);
-  console.log(darkMode);
   return (
     <main className={darkMode ? 'dark' : ''}>
       <AuthProvider>

@@ -12,6 +12,7 @@ import { Input } from '../components/ui/input';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const schemaRegister = yup.object({
   username: yup.string().required('username is required'),
@@ -25,6 +26,7 @@ export type UserRegister = yup.InferType<typeof schemaRegister>;
 
 function Register() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const form = useForm({
     resolver: yupResolver(schemaRegister),
     defaultValues: {
@@ -51,9 +53,9 @@ function Register() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{t("Username")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type your username" {...field} />
+                  <Input placeholder={t("Type your username")}  {...field} />
                 </FormControl>
                 {form.formState.errors.username ? (
                   <FormMessage className="h-1" />
@@ -68,10 +70,10 @@ function Register() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t("Password")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Type your password"
+                    placeholder={t("Type your password")}
                     {...field}
                     type="password"
                   />
@@ -89,10 +91,10 @@ function Register() {
             name="passwordConfirm"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>PasswordConfirm</FormLabel>
+                <FormLabel>{t("Password confirmation")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Type your passwordConfirm"
+                    placeholder={t("Confirm your password")}
                     {...field}
                     type="password"
                   />
@@ -105,7 +107,7 @@ function Register() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{t("Submit")}</Button>
         </form>
       </Form>
     </section>

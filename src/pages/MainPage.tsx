@@ -10,6 +10,7 @@ import PaginationComponent from 'src/components/PaginationComponent';
 import SelectComponent from 'src/components/SelectComponent';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { Button } from 'src/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 function MainPage() {
   const [value, setValue] = useState('abc');
@@ -18,6 +19,7 @@ function MainPage() {
   const [page, setPage] = useState('1');
   const [yearValue, setYearValue] = useState('');
   const [isLastPage, setIsLastPage] = useState(false);
+  const { t } = useTranslation();
   const { data, isFetching, error, isError } = useGetAllMovieQuery({
     debouncedValue,
     typeValue,
@@ -65,21 +67,21 @@ function MainPage() {
            value={typeValue}
             array={arrayGenres}
             onChangeFn={setTypeValue}
-            placeholder="Choose genre"
+            placeholder={t("Choose genre")} 
           />
 
           <SelectComponent
             value={yearValue}
             array={arrYears}
             onChangeFn={setYearValue}
-            placeholder="Choose year"
+            placeholder={t("Choose year")}
           />
-          <Button onClick={reset}>Reset</Button>
+          <Button onClick={reset}>{t("Reset")}</Button>
         </div>
 
         <Input
           className="max-w-80 bg-input"
-          placeholder="Type..."
+          placeholder={t('Type')}
           onChange={e => setValue(e.target.value)}
           ref={refInput}
         />

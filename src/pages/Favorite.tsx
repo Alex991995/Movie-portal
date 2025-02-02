@@ -36,18 +36,18 @@ function Favorite() {
 
   return (
     <section className="grid h-full grid-rows-[1fr_200px]">
-      <div className="listGrid mt-4 grid justify-center gap-4">
+      <ul className="listGrid mt-4 grid justify-center gap-4">
         {pageItems.length ? (
           pageItems.map(item => (
-            <div className="flex h-72 flex-col gap-4 rounded-md" key={item.imdbID}>
+            <li className="flex h-72 flex-col gap-4 rounded-md" key={item.imdbID}>
               {isPosterExist(item)}
               <InfoAboutSingleMovie data={item} />
-            </div>
+            </li>
           ))
         ) : (
           <div>No chosen movies</div>
         )}
-      </div>
+      </ul>
       <PaginationComponent page={page} setPage={setPage} isLastPage={isLastPage} />
     </section>
   );

@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { UserRegister } from './Register';
 import { useAuth } from 'src/hoc/AuthProvider';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const schemaRegister = yup.object({
   username: yup.string().required('username is required'),
@@ -25,6 +26,7 @@ type User = yup.InferType<typeof schemaRegister>;
 function Login() {
   const { user, logIn } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const form = useForm({
     resolver: yupResolver(schemaRegister),
     mode: 'onChange',
@@ -73,9 +75,9 @@ function Login() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{t("Username")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type your username" {...field} />
+                  <Input placeholder={t("Type your username")} {...field} />
                 </FormControl>
                 {form.formState.errors.username ? (
                   <FormMessage className="h-1" />
@@ -90,10 +92,10 @@ function Login() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t("Password")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Type your password"
+                    placeholder={t("Type your password")}
                     {...field}
                     type="password"
                   />
@@ -107,7 +109,7 @@ function Login() {
             )}
           />
           <Button type="submit" disabled={!form.formState.isValid}>
-            Submit
+          {t("Submit")}
           </Button>
         </form>
       </Form>

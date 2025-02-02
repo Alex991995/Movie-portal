@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Pagination,
   PaginationContent,
@@ -19,6 +20,7 @@ function PaginationComponent({
   setPage,
   isLastPage,
 }: PaginationComponentProps) {
+  const { t } = useTranslation();
   function nextPage() {
     setPage(prevStat => String(+prevStat + 1));
   }
@@ -31,8 +33,9 @@ function PaginationComponent({
     <>
       <Pagination>
         <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious onClick={previousPage} />
+          <PaginationItem >
+            <PaginationPrevious text={t("Previous")}  onClick={previousPage} />
+          
           </PaginationItem>
 
           <PaginationItem>
@@ -45,6 +48,7 @@ function PaginationComponent({
 
           <PaginationItem>
             <PaginationNext
+              text={t("Next")}
               onClick={isLastPage ? undefined : nextPage}
               className={isLastPage ? 'cursor-not-allowed' : ''}
             />
