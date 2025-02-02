@@ -78,6 +78,10 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
+.d{
+ @apply fixed inset-0 w-full h-full  bg-purple-400 z-10 justify-center
+}
+
 @layer base {
   * {
     @apply border-border;
