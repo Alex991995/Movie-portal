@@ -8,15 +8,15 @@ function SwitcherLanguage() {
     { code: 'ru', name: 'Russian' },
   ];
 
-  function changeLanguage(code:string) {
-    i18n.changeLanguage(code)
+  function changeLanguage(code: string) {
+    i18n.changeLanguage(code);
   }
   return (
-    <Select  onValueChange={changeLanguage}>
+    <Select onValueChange={changeLanguage}>
       <SelectTrigger className="max-w-[100px]">
         <SelectValue placeholder="English" />
-        </SelectTrigger>
-      <SelectContent >
+      </SelectTrigger>
+      <SelectContent>
         {arrLang.map(item => (
           <SelectItem key={item.code} value={item.code}>
             {item.name}

@@ -17,8 +17,9 @@ function Header({ setDarkMode }: HeaderProps) {
   const { user, logOut } = useAuth();
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [windowSize, setWindowSize] = useState(0);
+
+  let ifUserExistsShowUsernameOrRegister;
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,8 +32,6 @@ function Header({ setDarkMode }: HeaderProps) {
 
     return () => window.removeEventListener('resize', handleResize);
   }, [windowSize]);
-
-  let ifUserExistsShowUsernameOrRegister;
 
   if (user) {
     ifUserExistsShowUsernameOrRegister = (
@@ -86,7 +85,7 @@ function Header({ setDarkMode }: HeaderProps) {
 
       <nav
         onClick={closeMenuIfClickAnyPlace}
-        className={`${isMenuOpen ? 'nav-small_active flex flex-col' : 'hidden'} px-4 items-center gap-4 transition-all md:flex md:justify-between`}
+        className={`${isMenuOpen ? 'nav-small_active flex flex-col' : 'hidden'} items-center gap-4 px-4 transition-all md:flex md:justify-between`}
       >
         <Link to="/">
           <img className="w-24" src="/pngwing.com.png" alt="Logo" />

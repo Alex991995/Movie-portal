@@ -17,6 +17,7 @@ interface PaginationComponentProps {
 
 function PaginationComponent({ page, setPage, isLastPage }: PaginationComponentProps) {
   const { t } = useTranslation();
+
   function nextPage() {
     setPage(prevStat => String(+prevStat + 1));
   }

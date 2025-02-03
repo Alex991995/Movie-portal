@@ -5,8 +5,8 @@ interface InfoAboutSingleMovieProps {
 }
 
 function InfoAboutSingleMovie({ data }: InfoAboutSingleMovieProps) {
-  if(!data){
-    return null
+  if (!data) {
+    return null;
   }
   return (
     <>

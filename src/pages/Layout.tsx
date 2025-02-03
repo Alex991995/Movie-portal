@@ -1,7 +1,8 @@
-import Header from 'src/components/Header';
-import { Outlet } from 'react-router';
-import ErrorBoundary from 'src/components/ErrorBoundary';
 import { useState } from 'react';
+import { Outlet } from 'react-router';
+
+import Header from 'src/components/Header';
+import ErrorBoundary from 'src/components/ErrorBoundary';
 import AuthProvider from 'src/hoc/AuthProvider';
 
 function Layout() {

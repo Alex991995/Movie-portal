@@ -1,4 +1,9 @@
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+
 import { Button } from '../components/ui/button';
 import {
   Form,
@@ -9,12 +14,8 @@ import {
   FormMessage,
 } from '../components/ui/form';
 import { Input } from '../components/ui/input';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { UserRegister } from './Register';
 import { useAuth } from 'src/hoc/AuthProvider';
-import { useNavigate } from 'react-router';
-import { useTranslation } from 'react-i18next';
 
 const schemaRegister = yup.object({
   username: yup.string().required('username is required'),
@@ -43,10 +44,7 @@ function Login() {
 
         if (registeredUser) {
           const result = JSON.parse(registeredUser) as UserRegister;
-          if (
-            data.username === result.username &&
-            data.password === result.password
-          ) {
+          if (data.username === result.username && data.password === result.password) {
             logIn(data.username);
             navigate('/');
             return true;
@@ -64,7 +62,7 @@ function Login() {
   }
 
   return (
-    <section className="flex justify-center h-full">
+    <section className="flex h-full justify-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -75,9 +73,9 @@ function Login() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("Username")}</FormLabel>
+                <FormLabel>{t('Username')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("Type your username")} {...field} />
+                  <Input placeholder={t('Type your username')} {...field} />
                 </FormControl>
                 {form.formState.errors.username ? (
                   <FormMessage className="h-1" />
@@ -92,13 +90,9 @@ function Login() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("Password")}</FormLabel>
+                <FormLabel>{t('Password')}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder={t("Type your password")}
-                    {...field}
-                    type="password"
-                  />
+                  <Input placeholder={t('Type your password')} {...field} type="password" />
                 </FormControl>
                 {form.formState.errors.password ? (
                   <FormMessage className="h-1" />
@@ -109,7 +103,7 @@ function Login() {
             )}
           />
           <Button type="submit" disabled={!form.formState.isValid}>
-          {t("Submit")}
+            {t('Submit')}
           </Button>
         </form>
       </Form>

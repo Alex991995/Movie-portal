@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import ListMovies from 'src/components/ListMovies';
 import Loader from 'src/components/Loader';
@@ -10,7 +11,6 @@ import PaginationComponent from 'src/components/PaginationComponent';
 import SelectComponent from 'src/components/SelectComponent';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { Button } from 'src/components/ui/button';
-import { useTranslation } from 'react-i18next';
 
 function MainPage() {
   const [value, setValue] = useState('abc');

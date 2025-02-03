@@ -1,10 +1,9 @@
-
 function Loader() {
   return (
-   <div className="flex justify-center h-full items-center">
-    <div className='loader'></div>
-   </div> 
-  )
+    <div className="flex h-full items-center justify-center">
+      <div className="loader"></div>
+    </div>
+  );
 }
 
-export default Loader
+export default Loader;

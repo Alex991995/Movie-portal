@@ -1,7 +1,9 @@
-import { Link, useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
+
 import { useGetSingleMovieQuery } from 'src/features/api/movieApi';
 import Loader from 'src/components/Loader';
-import { IDataError, ISingleMovie } from 'src/types';
+import { IDataError } from 'src/types';
 import { Button } from 'src/components/ui/button';
 import useActions from 'src/hooks/useAction';
 import { useAppSelector } from 'src/hooks/reduxHooks';
@@ -15,6 +17,7 @@ function SingleMovie() {
   const { data, isFetching, isError, error } = useGetSingleMovieQuery(id || '');
   const navigate = useNavigate();
   const { addToFavorites, deleteFromFavorites } = useActions();
+  const { t } = useTranslation();
 
   const favoriteMovies = useAppSelector(state => state.movies.favoriteMovies);
   const isExistMovieInStorage = favoriteMovies.find(
@@ -22,6 +25,7 @@ function SingleMovie() {
   );
 
   const resultIfPosterOrNot = isPosterExist(data);
+  let ifUserExistShowLikeOrRedirectToLogin;
 
   if (isFetching) {
     return <Loader />;
@@ -32,8 +36,6 @@ function SingleMovie() {
     throw new Error(customError.data.Error);
   }
 
-  let ifUserExistShowLikeOrRedirectToLogin;
-
   if (user) {
     ifUserExistShowLikeOrRedirectToLogin = isExistMovieInStorage ? (
       <Button
@@ -41,7 +43,7 @@ function SingleMovie() {
         className="self-end justify-self-start"
         onClick={() => deleteFromFavorites(isExistMovieInStorage.imdbID)}
       >
-        delite
+        {t('Delite Card')}
       </Button>
     ) : (
       <Button
@@ -49,7 +51,7 @@ function SingleMovie() {
         className="self-end justify-self-start"
         onClick={() => data && addToFavorites({ ...data, user })}
       >
-        Like
+        {t('Add To Favorite')}
       </Button>
     );
   } else {
@@ -59,7 +61,7 @@ function SingleMovie() {
         className="self-end justify-self-start"
         onClick={() => navigate('/login')}
       >
-        Войти
+        {t('Log in')}
       </Button>
     );
   }
@@ -76,7 +78,7 @@ function SingleMovie() {
           variant="outline"
           onClick={() => navigate(-1)}
         >
-          Назад
+          {t('Back')}
         </Button>
         {ifUserExistShowLikeOrRedirectToLogin}
       </div>
